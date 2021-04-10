@@ -36,7 +36,8 @@ function Home(props) {
 
   useEffect(() => {
     getListChat()
-    // eslint-disabled-next-line
+       // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [])
 
   return (
