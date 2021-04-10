@@ -5,7 +5,8 @@
 .card {
   border: 0;
   border-radius: 0px;
-  margin-bottom: 30px;
+  height: 80vh;
+  overflow-y: scroll !important;
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
   -webkit-transition: 0.5s;
@@ -87,7 +88,7 @@ h4.card-title {
 .ps-container {
   -ms-touch-action: auto;
   touch-action: auto;
-  overflow: hidden !important;
+  overflow-y: scroll !important;
   -ms-overflow-style: none;
 }
 
@@ -232,7 +233,9 @@ h4.card-title {
 }
 
 .publisher {
-  position: relative;
+  position: fixed !important;
+  width: 45%;
+  bottom: 0;
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
