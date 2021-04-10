@@ -1,4 +1,4 @@
-import 'antd/dist/antd.css';
+import './bootstrap.min.css';
 import './App.css';
 import Home from './views/home';
 

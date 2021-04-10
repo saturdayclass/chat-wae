@@ -1,60 +1,177 @@
-import React, { useState } from 'react';
-import { Layout, Menu } from 'antd';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
-
-const { Header, Sider, Content } = Layout;
-
 function Home() {
-  // eslint-disable-next-line
-  const [collapsed, setCollapsed] = useState(false);
-
-  const toggle = () => {
-    setCollapsed(!collapsed);
-  };
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: 'trigger',
-              onClick: toggle,
-            }
-          )}
-        </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-          }}
-        >
-          Content
-        </Content>
-      </Layout>
-    </Layout>
+    <div class="page-content page-container" id="page-content">
+      <div class="padding">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-6">
+            <div class="card card-bordered">
+              <div class="card-header">
+                <h4 class="card-title">
+                  <strong>Chat</strong>
+                </h4>{' '}
+                <a class="btn btn-xs btn-secondary" href="#" data-abc="true">
+                  Let's Chat App
+                </a>
+              </div>
+              <div
+                class="ps-container ps-theme-default ps-active-y"
+                id="chat-content"
+                style={{
+                  overflowY: 'scroll !important',
+                  height: '400px !important',
+                }}
+              >
+                <div class="media media-chat">
+                  {' '}
+                  <img
+                    class="avatar"
+                    src="https://img.icons8.com/color/36/000000/administrator-male.png"
+                    alt="..."
+                  />
+                  <div class="media-body">
+                    <p>Hi</p>
+                    <p>How are you ...???</p>
+                    <p>
+                      What are you doing tomorrow?
+                      <br /> Can we come up a bar?
+                    </p>
+                    <p class="meta">
+                      <time datetime="2018">23:58</time>
+                    </p>
+                  </div>
+                </div>
+                <div class="media media-meta-day">Today</div>
+                <div class="media media-chat media-chat-reverse">
+                  <div class="media-body">
+                    <p>Hiii, I'm good.</p>
+                    <p>How are you doing?</p>
+                    <p>
+                      Long time no see! Tomorrow office. will be free on sunday.
+                    </p>
+                    <p class="meta">
+                      <time datetime="2018">00:06</time>
+                    </p>
+                  </div>
+                </div>
+                <div class="media media-chat">
+                  {' '}
+                  <img
+                    class="avatar"
+                    src="https://img.icons8.com/color/36/000000/administrator-male.png"
+                    alt="..."
+                  />
+                  <div class="media-body">
+                    <p>Okay</p>
+                    <p>We will go on sunday? </p>
+                    <p class="meta">
+                      <time datetime="2018">00:07</time>
+                    </p>
+                  </div>
+                </div>
+                <div class="media media-chat media-chat-reverse">
+                  <div class="media-body">
+                    <p>That's awesome!</p>
+                    <p>I will meet you Sandon Square sharp at 10 AM</p>
+                    <p>Is that okay?</p>
+                    <p class="meta">
+                      <time datetime="2018">00:09</time>
+                    </p>
+                  </div>
+                </div>
+                <div class="media media-chat">
+                  {' '}
+                  <img
+                    class="avatar"
+                    src="https://img.icons8.com/color/36/000000/administrator-male.png"
+                    alt="..."
+                  />
+                  <div class="media-body">
+                    <p>Okay i will meet you on Sandon Square </p>
+                    <p class="meta">
+                      <time datetime="2018">00:10</time>
+                    </p>
+                  </div>
+                </div>
+                <div class="media media-chat media-chat-reverse">
+                  <div class="media-body">
+                    <p>Do you have pictures of Matley Marriage?</p>
+                    <p class="meta">
+                      <time datetime="2018">00:10</time>
+                    </p>
+                  </div>
+                </div>
+                <div class="media media-chat">
+                  {' '}
+                  <img
+                    class="avatar"
+                    src="https://img.icons8.com/color/36/000000/administrator-male.png"
+                    alt="..."
+                  />
+                  <div class="media-body">
+                    <p>Sorry I don't have. i changed my phone.</p>
+                    <p class="meta">
+                      <time datetime="2018">00:12</time>
+                    </p>
+                  </div>
+                </div>
+                <div class="media media-chat media-chat-reverse">
+                  <div class="media-body">
+                    <p>Okay then see you on sunday!!</p>
+                    <p class="meta">
+                      <time datetime="2018">00:12</time>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="ps-scrollbar-x-rail"
+                  style={{ left: '0px', bottom: '0px' }}
+                >
+                  <div
+                    class="ps-scrollbar-x"
+                    tabindex="0"
+                    style={{ left: '0px', bottom: '0px' }}
+                  ></div>
+                </div>
+                <div
+                  class="ps-scrollbar-y-rail"
+                  style={{ left: '0px', right: '2px' }}
+                >
+                  <div
+                    class="ps-scrollbar-y"
+                    tabindex="0"
+                    style={{ left: '0px', height: '2px' }}
+                  ></div>
+                </div>
+              </div>
+              <div class="publisher bt-1 border-light">
+                {' '}
+                <img
+                  class="avatar avatar-xs"
+                  src="https://img.icons8.com/color/36/000000/administrator-male.png"
+                  alt="..."
+                />{' '}
+                <input
+                  class="publisher-input"
+                  type="text"
+                  placeholder="Write something"
+                />{' '}
+                <span class="publisher-btn file-group">
+                  {' '}
+                  <i class="fa fa-paperclip file-br/owser"></i>{' '}
+                  <input type="file" />{' '}
+                </span>{' '}
+                <a class="publisher-btn" href="#" data-abc="true">
+                  <i class="fa fa-smile"></i>
+                </a>{' '}
+                <a class="publisher-btn text-info" href="#" data-abc="true">
+                  <i class="fa fa-paper-plane"></i>
+                </a>{' '}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
