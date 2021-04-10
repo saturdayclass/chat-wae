@@ -7,15 +7,6 @@ function Home(props) {
   const [content, setContent] = useState("")
   const [chat, setChat] = useState([])
 
-  const getListChat = () => {
-    const fetchDB = db.ref("chat")
-    fetchDB.on("value", (snapshot) => {
-      const value = snapshot.val()
-      const listChat = Object.values(value)
-      setChat([...chat, ...listChat])
-    })
-  }
-
   const saveChat = ({ keyCode }) => {
     if (keyCode === 13) {
       const data = {
@@ -36,9 +27,12 @@ function Home(props) {
   }
 
   useEffect(() => {
-    getListChat()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
+    const fetchDB = db.ref("chat")
+    fetchDB.on("value", (snapshot) => {
+      const value = snapshot.val()
+      const listChat = Object.values(value)
+      setChat([...chat, ...listChat])
+    })
   }, [])
 
   return (
