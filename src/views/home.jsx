@@ -1,4 +1,43 @@
-function Home() {
+import { useState, useEffect } from 'react'
+import { db } from '../config'
+import moment from 'moment'
+
+function Home(props) {
+  const [content, setContent] = useState("")
+  const [chat, setChat] = useState([])
+
+  const getListChat = async () => {
+    const fetchDB = await db.ref("chat")
+    fetchDB.on("value", (snapshot) => {
+      const value = snapshot.val()
+      const listChat = Object.values(value)
+      setChat([...chat, ...listChat])
+    })
+  }
+
+  const saveChat = ({ keyCode }) => {
+    if (keyCode === 13) {
+      const data = {
+        uid: props.identifier,
+        content,
+        timestamp: Date.now()
+      }
+
+      try {
+        setChat([...chat, data])
+        setContent("")
+        return db.ref("chat").push(data)
+      }
+      catch (err) {
+
+      }
+    }
+  }
+
+  useEffect(() => {
+    getListChat()
+  }, [])
+
   return (
     <div className="page-content page-container" id="page-content">
       <p className="text-center">
@@ -26,107 +65,36 @@ function Home() {
                   height: '400px !important',
                 }}
               >
-                <div className="media media-chat">
-                  {' '}
-                  <img
-                    className="avatar"
-                    src="https://img.icons8.com/color/36/000000/administrator-male.png"
-                    alt="..."
-                  />
-                  <div className="media-body">
-                    <p>Hi</p>
-                    <p>How are you ...???</p>
-                    <p>
-                      What are you doing tomorrow?
-                      <br /> Can we come up a bar?
-                    </p>
-                    <p className="meta">
-                      <time datetime="2018">23:58</time>
-                    </p>
-                  </div>
-                </div>
-                <div className="media media-meta-day">Today</div>
-                <div className="media media-chat media-chat-reverse">
-                  <div className="media-body">
-                    <p>Hiii, I'm good.</p>
-                    <p>How are you doing?</p>
-                    <p>
-                      Long time no see! Tomorrow office. will be free on sunday.
-                    </p>
-                    <p className="meta">
-                      <time datetime="2018">00:06</time>
-                    </p>
-                  </div>
-                </div>
-                <div className="media media-chat">
-                  {' '}
-                  <img
-                    className="avatar"
-                    src="https://img.icons8.com/color/36/000000/administrator-male.png"
-                    alt="..."
-                  />
-                  <div className="media-body">
-                    <p>Okay</p>
-                    <p>We will go on sunday? </p>
-                    <p className="meta">
-                      <time datetime="2018">00:07</time>
-                    </p>
-                  </div>
-                </div>
-                <div className="media media-chat media-chat-reverse">
-                  <div className="media-body">
-                    <p>That's awesome!</p>
-                    <p>I will meet you Sandon Square sharp at 10 AM</p>
-                    <p>Is that okay?</p>
-                    <p className="meta">
-                      <time datetime="2018">00:09</time>
-                    </p>
-                  </div>
-                </div>
-                <div className="media media-chat">
-                  {' '}
-                  <img
-                    className="avatar"
-                    src="https://img.icons8.com/color/36/000000/administrator-male.png"
-                    alt="..."
-                  />
-                  <div className="media-body">
-                    <p>Okay i will meet you on Sandon Square </p>
-                    <p className="meta">
-                      <time datetime="2018">00:10</time>
-                    </p>
-                  </div>
-                </div>
-                <div className="media media-chat media-chat-reverse">
-                  <div className="media-body">
-                    <p>Do you have pictures of Matley Marriage?</p>
-                    <p className="meta">
-                      <time datetime="2018">00:10</time>
-                    </p>
-                  </div>
-                </div>
-                <div className="media media-chat">
-                  {' '}
-                  <img
-                    className="avatar"
-                    src="https://img.icons8.com/color/36/000000/administrator-male.png"
-                    alt="..."
-                  />
-                  <div className="media-body">
-                    <p>Sorry I don't have. i changed my phone.</p>
-                    <p className="meta">
-                      <time datetime="2018">00:12</time>
-                    </p>
-                  </div>
-                </div>
-                <div className="media media-chat media-chat-reverse">
-                  <div className="media-body">
-                    <p>Okay then see you on sunday!!</p>
-                    <p className="meta">
-                      <time datetime="2018">00:12</time>
-                    </p>
-                  </div>
-                </div>
+                {
+                  (chat || []).map((item, index) => {
+                    if (item.uid === props.identifier) {
+                      return (<div key={index} className="media media-chat media-chat-reverse">
+                        <div className="media-body">
+                          <p>{item.content}</p>
+                          <p className="meta">
+                            <span className="text-secondary">{moment(item.timestamp).format("hh:mm")}</span>
+                          </p>
+                        </div>
+                      </div>)
+                    }
+                    else {
+                      return (<div key={index} className="media media-chat">
+                        {' '}
+                        <img
+                          className="avatar"
+                          src="https://img.icons8.com/color/36/000000/administrator-male.png"
+                          alt="..."
+                        />
+                        <div className="media-body">
+                          <p>{item.content}</p>
+                          <p className="meta">
+                            <span className="text-secondary">{moment(item.timestamp).format("hh:mm")}</span>
+                          </p>
+                        </div>
+                      </div>)
+                    }
+                  })
+                }
                 <div
                   className="ps-scrollbar-x-rail"
                   style={{ left: '0px', bottom: '0px' }}
@@ -158,21 +126,11 @@ function Home() {
                 <input
                   className="publisher-input"
                   type="text"
-                  placeholder="Write something"
+                  placeholder="Tuliskan Sesuatu"
+                  onChange={({ target }) => setContent(target.value)}
+                  onKeyDown={saveChat}
+                  value={content}
                 />{' '}
-                <span className="publisher-btn file-group">
-                  {' '}
-                  <i className="fa fa-paperclip file-br/owser"></i>{' '}
-                  <input type="file" />{' '}
-                </span>{' '}
-                {/* eslint-disable-next-line */}
-                <a className="publisher-btn" to="/" data-abc="true">
-                  <i className="fa fa-smile"></i>
-                </a>{' '}
-                {/* eslint-disable-next-line */}
-                <a className="publisher-btn text-info" to="/" data-abc="true">
-                  <i className="fa fa-paper-plane"></i>
-                </a>{' '}
               </div>
             </div>
           </div>
