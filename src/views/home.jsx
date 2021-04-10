@@ -7,8 +7,8 @@ function Home(props) {
   const [content, setContent] = useState("")
   const [chat, setChat] = useState([])
 
-  const getListChat = async () => {
-    const fetchDB = await db.ref("chat")
+  const getListChat = () => {
+    const fetchDB = db.ref("chat")
     fetchDB.on("value", (snapshot) => {
       const value = snapshot.val()
       const listChat = Object.values(value)
@@ -37,7 +37,7 @@ function Home(props) {
 
   useEffect(() => {
     getListChat()
-       // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 
   }, [])
 
