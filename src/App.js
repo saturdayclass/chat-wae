@@ -1,3 +1,4 @@
+import React from 'react'
 import './bootstrap.min.css';
 import './App.css';
 import ChatPage from './views/home';
