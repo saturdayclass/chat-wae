@@ -1,11 +1,24 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { db } from '../config'
 import moment from 'moment'
 
 function Home(props) {
   const [content, setContent] = useState("")
   const [chat, setChat] = useState([])
+  const containerRef = useRef()
+
+  const getListChat = () => {
+    const fetchDB = db.ref("chat")
+    fetchDB.on("value", (snapshot) => {
+      const value = snapshot.val()
+      const listChat = Object.values(value)
+      setChat([...chat, ...listChat])
+      smoothScroll()
+    })
+  }
+
+  const smoothScroll = () => containerRef.current.scroll({ top: containerRef.current.scrollHeight, behavior: "smooth" })
 
   const saveChat = ({ keyCode }) => {
     if (keyCode === 13) {
@@ -18,7 +31,7 @@ function Home(props) {
       try {
         setChat([...chat, data])
         setContent("")
-        return db.ref("chat").push(data)
+        db.ref("chat").push(data)
       }
       catch (err) {
 
@@ -27,13 +40,12 @@ function Home(props) {
   }
 
   useEffect(() => {
-    const fetchDB = db.ref("chat")
-    fetchDB.on("value", (snapshot) => {
-      const value = snapshot.val()
-      const listChat = Object.values(value)
-      setChat([...chat, ...listChat])
-    })
+    getListChat()
   }, [])
+
+  useEffect(() => {
+    smoothScroll()
+  })
 
   return (
     <div className="page-content page-container" id="page-content">
@@ -61,6 +73,7 @@ function Home(props) {
                   overflowY: 'scroll !important',
                   height: '400px !important',
                 }}
+                ref={containerRef}
               >
                 {
                   (chat || []).map((item, index) => {
